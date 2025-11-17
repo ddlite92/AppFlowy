@@ -28,9 +28,9 @@ void main() {
       await tester.pumpAndSettle(const Duration(milliseconds: 300));
 
       final userId = '457037009907617792';
-      final user = User(id: userId, lastName: 'Lucas');
+      final user = User(id: userId);
       final aiUserId = '0';
-      final aiUser = User(id: aiUserId, lastName: 'AI');
+      final aiUser = User(id: aiUserId);
 
       await tester.loadDefaultMessages(
         [
@@ -113,9 +113,9 @@ void main() {
       await tester.pumpAndSettle(const Duration(milliseconds: 300));
 
       final userId = '457037009907617792';
-      final user = User(id: userId, lastName: 'Lucas');
+      final user = User(id: userId);
       final aiUserId = '0';
-      final aiUser = User(id: aiUserId, lastName: 'AI');
+      final aiUser = User(id: aiUserId);
 
       // start chat
       int messageId = 1;
