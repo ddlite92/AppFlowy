@@ -11,7 +11,6 @@ import 'package:appflowy_result/appflowy_result.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:protobuf/protobuf.dart' hide FieldInfo;
 
 part 'settings_sites_bloc.freezed.dart';
 

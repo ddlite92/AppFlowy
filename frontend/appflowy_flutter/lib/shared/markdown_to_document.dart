@@ -78,18 +78,16 @@ Future<String> customDocumentToMarkdown(
     if (onArchive == null) {
       final zipEncoder = ZipEncoder();
       final zip = zipEncoder.encode(archive);
-      if (zip != null) {
-        final zipFile = await File(path).writeAsBytes(zip);
-        if (Platform.isIOS) {
-          await Share.shareUri(zipFile.uri);
-          await zipFile.delete();
-        } else if (Platform.isAndroid) {
-          await Share.shareXFiles([XFile(zipFile.path)]);
-          await zipFile.delete();
-        }
-        Log.info('documentToMarkdownFiles to $path');
+      final zipFile = await File(path).writeAsBytes(zip);
+      if (Platform.isIOS) {
+        await Share.shareUri(zipFile.uri);
+        await zipFile.delete();
+      } else if (Platform.isAndroid) {
+        await Share.shareXFiles([XFile(zipFile.path)]);
+        await zipFile.delete();
       }
-    } else {
+      Log.info('documentToMarkdownFiles to $path');
+        } else {
       await onArchive.call(archive);
     }
   }

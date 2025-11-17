@@ -24,7 +24,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:protobuf/protobuf.dart';
 
 part 'reminder_bloc.freezed.dart';
 

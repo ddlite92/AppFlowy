@@ -20,7 +20,6 @@ import 'package:collection/collection.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:protobuf/protobuf.dart';
 
 part 'view_bloc.freezed.dart';
 

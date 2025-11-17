@@ -230,7 +230,6 @@ class MobileAppearance extends BaseAppearance {
         ),
       ),
       colorScheme: colorTheme,
-      indicatorColor: Colors.blue,
       extensions: [
         AFThemeExtension(
           warning: theme.yellow,
@@ -278,7 +277,7 @@ class MobileAppearance extends BaseAppearance {
           toolbarHoverColor: theme.toolbarHoverColor,
         ),
         ToolbarColorExtension.fromBrightness(brightness),
-      ],
+      ], tabBarTheme: TabBarThemeData(indicatorColor: Colors.blue),
     );
   }
 }

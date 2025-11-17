@@ -18,7 +18,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:protobuf/protobuf.dart' hide FieldInfo;
 import 'package:universal_platform/universal_platform.dart';
 
 import '../../application/database_controller.dart';

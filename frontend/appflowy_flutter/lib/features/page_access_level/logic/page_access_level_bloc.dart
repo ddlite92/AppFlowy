@@ -9,7 +9,6 @@ import 'package:appflowy/shared/feature_flags.dart';
 import 'package:appflowy/workspace/application/view/view_listener.dart';
 import 'package:appflowy_backend/protobuf/flowy-folder/view.pb.dart';
 import 'package:bloc/bloc.dart';
-import 'package:protobuf/protobuf.dart';
 
 export 'page_access_level_event.dart';
 export 'page_access_level_state.dart';

@@ -1,6 +1,7 @@
-library flowy_infra_ui_web;
+// library flowy_infra_ui_web;
 
-import 'dart:html' as html show window;
+import 'dart:js_util' as js_util;
+
 import 'package:flowy_infra_ui_platform_interface/flowy_infra_ui_platform_interface.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
@@ -19,7 +20,13 @@ class FlowyInfraUIPlugin extends FlowyInfraUIPlatform {
 
   @override
   Future<String?> getPlatformVersion() async {
-    final version = html.window.navigator.userAgent;
-    return Future.value(version);
+    // read navigator.userAgent via JS interop to avoid dart:html
+    try {
+      final navigator = js_util.getProperty(js_util.globalThis, 'navigator');
+      final userAgent = js_util.getProperty(navigator, 'userAgent');
+      return userAgent is String ? userAgent : null;
+    } catch (_) {
+      return null;
+    }
   }
 }

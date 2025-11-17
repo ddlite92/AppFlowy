@@ -37,27 +37,27 @@ void main() {
           Message.text(
             id: '1746776401',
             text: 'How to use Kanban to manage tasks?',
-            author: user,
+            authorId: user.id,
             createdAt: DateTime.now().add(const Duration(seconds: 1)),
           ),
           Message.text(
             id: '1746776401_ans',
             text:
-                'I couldn’t find any relevant information in the sources you selected. Please try asking a different question',
-            author: aiUser,
+                'I couldn\'t find any relevant information in the sources you selected. Please try asking a different question',
+            authorId: aiUser.id,
             createdAt: DateTime.now().add(const Duration(seconds: 2)),
           ),
           Message.text(
             id: '1746776402',
             text: 'How to use Kanban to manage tasks?',
-            author: user,
+            authorId: user.id,
             createdAt: DateTime.now().add(const Duration(seconds: 3)),
           ),
           Message.text(
             id: '1746776402_ans',
             text:
-                'I couldn’t find any relevant information in the sources you selected. Please try asking a different question',
-            author: aiUser,
+                'I couldn\'t find any relevant information in the sources you selected. Please try asking a different question',
+            authorId: aiUser.id,
             createdAt: DateTime.now().add(const Duration(seconds: 4)),
           ),
         ].reversed.toList(),
@@ -72,7 +72,7 @@ void main() {
         Message.text(
           id: messageId.toString(),
           text: 'How to use AppFlowy?',
-          author: user,
+          authorId: user.id,
           createdAt: DateTime.now(),
         ),
       );
@@ -86,7 +86,7 @@ void main() {
 - Download and install AppFlowy from the official website (appflowy.io) or through app stores for your operating system (Windows, macOS, Linux, or mobile)
 - Create an account or sign in when you first launch the app
 - The main interface shows your workspace with a sidebar for navigation and a content area''',
-          author: aiUser,
+          authorId: aiUser.id,
           createdAt: DateTime.now(),
         ),
       );
@@ -127,7 +127,7 @@ void main() {
           Message.text(
             id: messageId.toString(),
             text: 'How to use AppFlowy?',
-            author: user,
+            authorId: user.id,
             createdAt: DateTime.now(),
           ),
         );
@@ -141,7 +141,7 @@ void main() {
 - Download and install AppFlowy from the official website (appflowy.io) or through app stores for your operating system (Windows, macOS, Linux, or mobile)
 - Create an account or sign in when you first launch the app
 - The main interface shows your workspace with a sidebar for navigation and a content area''',
-            author: aiUser,
+            authorId: aiUser.id,
             createdAt: DateTime.now(),
           ),
         );
@@ -156,7 +156,7 @@ void main() {
           Message.text(
             id: messageId.toString(),
             text: 'How to use AppFlowy?',
-            author: user,
+            authorId: user.id,
             createdAt: DateTime.now(),
           ),
         );
@@ -167,8 +167,8 @@ void main() {
           Message.text(
             id: '${messageId}_ans',
             text:
-                'I couldn’t find any relevant information in the sources you selected. Please try asking a different question',
-            author: aiUser,
+                'I couldn\'t find any relevant information in the sources you selected. Please try asking a different question',
+            authorId: aiUser.id,
             createdAt: DateTime.now(),
           ),
         );
@@ -183,7 +183,7 @@ void main() {
           Message.text(
             id: messageId.toString(),
             text: 'What document formatting options are available?',
-            author: user,
+            authorId: user.id,
             createdAt: DateTime.now(),
           ),
         );
@@ -195,7 +195,7 @@ void main() {
             id: '${messageId}_ans',
             text:
                 '# AppFlowy Document Formatting\n- Basic formatting: Bold, italic, underline, strikethrough\n- Headings: 6 levels of headings for structuring content\n- Lists: Bullet points, numbered lists, and checklists\n- Code blocks: Format text as code with syntax highlighting\n- Tables: Create and format data tables\n- Embedded content: Add images, files, and other rich media',
-            author: aiUser,
+            authorId: aiUser.id,
             createdAt: DateTime.now(),
           ),
         );
@@ -210,7 +210,7 @@ void main() {
           Message.text(
             id: messageId.toString(),
             text: 'How do I export my data from AppFlowy?',
-            author: user,
+            authorId: user.id,
             createdAt: DateTime.now(),
           ),
         );
@@ -222,7 +222,7 @@ void main() {
             id: '${messageId}_ans',
             text:
                 '# Exporting from AppFlowy\n- Export documents in multiple formats: Markdown, HTML, PDF\n- Export databases as CSV or Excel files\n- Batch export entire workspaces for backup\n- Use the export menu (three dots → Export) on any page\n- Exported files maintain most formatting and structure',
-            author: aiUser,
+            authorId: aiUser.id,
             createdAt: DateTime.now(),
           ),
         );
@@ -237,7 +237,7 @@ void main() {
           Message.text(
             id: messageId.toString(),
             text: 'Is there a mobile version of AppFlowy?',
-            author: user,
+            authorId: user.id,
             createdAt: DateTime.now(),
           ),
         );
@@ -249,7 +249,7 @@ void main() {
             id: '${messageId}_ans',
             text:
                 '# AppFlowy on Mobile\n- Yes, AppFlowy is available for iOS and Android devices\n- Download from the App Store or Google Play Store\n- Mobile app includes core functionality: document editing, databases, and boards\n- Offline mode allows working without internet connection\n- Sync automatically when you reconnect\n- Responsive design adapts to different screen sizes',
-            author: aiUser,
+            authorId: aiUser.id,
             createdAt: DateTime.now(),
           ),
         );

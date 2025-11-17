@@ -75,9 +75,9 @@ class ChatSelectMessageBloc
       state.selectedMessages.any((m) => m.id == messageId);
 
   bool isAIMessage(Message message) {
-    return message.author.id == aiResponseUserId ||
-        message.author.id == systemUserId ||
-        message.author.id.startsWith("streamId:");
+    return message.authorId == aiResponseUserId ||
+        message.authorId == systemUserId ||
+        message.authorId.startsWith("streamId:");
   }
 }
 

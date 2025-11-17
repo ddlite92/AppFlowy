@@ -22,7 +22,6 @@ import 'package:flowy_infra/uuid.dart';
 import 'package:flowy_infra_ui/flowy_infra_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:protobuf/protobuf.dart';
 
 import 'mobile_field_bottom_sheets.dart';
 

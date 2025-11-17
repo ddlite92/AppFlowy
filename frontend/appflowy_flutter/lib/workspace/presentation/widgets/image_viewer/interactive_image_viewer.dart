@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'package:vector_math/vector_math_64.dart' as vm;
+
 import 'package:appflowy/plugins/database/widgets/cell_editor/media_cell_editor.dart';
 import 'package:appflowy/plugins/document/application/document_bloc.dart';
 import 'package:appflowy/plugins/document/presentation/editor_plugins/image/common.dart';
@@ -166,11 +168,14 @@ class _InteractiveImageViewerState extends State<InteractiveImageViewer> {
       _maxScaleFactor,
     );
 
-    // Create a new transformation
-    final newMatrix = Matrix4.identity()
-      ..translate(scenePointBefore.dx, scenePointBefore.dy)
-      ..scale(newScale / currentScale)
-      ..translate(-scenePointBefore.dx, -scenePointBefore.dy);
+    // Create a new transformation using non-deprecated APIs
+    final newMatrix = vm.Matrix4.identity()
+      ..translateByVector3(
+          vm.Vector3(scenePointBefore.dx, scenePointBefore.dy, 0),)
+      ..scaleByVector3(
+          vm.Vector3(newScale / currentScale, newScale / currentScale, 1.0),)
+      ..translateByVector3(
+          vm.Vector3(-scenePointBefore.dx, -scenePointBefore.dy, 0),);
 
     // Apply the new transformation
     controller.value = newMatrix * controller.value;
@@ -183,8 +188,8 @@ class _InteractiveImageViewerState extends State<InteractiveImageViewer> {
     final dy = scenePointAfter.dy - scenePointBefore.dy;
 
     // Apply the translation
-    controller.value = Matrix4.identity()
-      ..translate(-dx, -dy)
+    controller.value = vm.Matrix4.identity()
+      ..translateByVector3(vm.Vector3(-dx, -dy, 0))
       ..multiply(controller.value);
 
     _onControllerChanged();

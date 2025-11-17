@@ -56,9 +56,9 @@ class TestWorkspaceService {
 
   /// Workspaces that are checked into source are compressed. [TestWorkspaceService.setUp()] decompresses the file into an ephemeral directory that will be ignored by source control.
   Future<void> setUp() async {
-    final inputStream =
-        InputFileStream(await workspace.zip.then((value) => value.path));
-    final archive = ZipDecoder().decodeBuffer(inputStream);
+    final String zipPath = await workspace.zip.then((value) => value.path);
+    final bytes = await File(zipPath).readAsBytes();
+    final archive = ZipDecoder().decodeBytes(bytes);
     await extractArchiveToDisk(
       archive,
       await TestWorkspace._parent.then((value) => value.path),

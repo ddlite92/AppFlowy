@@ -90,57 +90,75 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<ChatEvent>((event, emit) async {
       await event.when(
         // Chat settings
-        didReceiveChatSettings: (settings) async =>
-            _handleChatSettings(settings),
-        updateSelectedSources: (selectedSourcesIds) async =>
-            _handleUpdateSources(selectedSourcesIds),
+        didReceiveChatSettings: (settings) {
+          _handleChatSettings(settings);
+        },
+        updateSelectedSources: (selectedSourcesIds) async {
+          await _handleUpdateSources(selectedSourcesIds);
+        },
 
         // Message loading
-        didLoadLatestMessages: (messages) async =>
-            _handleLatestMessages(messages, emit),
-        loadPreviousMessages: () async => _loadPreviousMessagesIfNeeded(),
-        didLoadPreviousMessages: (messages, hasMore) async =>
-            _handlePreviousMessages(messages, hasMore),
+        didLoadLatestMessages: (messages) async {
+          await _handleLatestMessages(messages, emit);
+        },
+        loadPreviousMessages: () {
+          _loadPreviousMessagesIfNeeded();
+        },
+        didLoadPreviousMessages: (messages, hasMore) async {
+          await _handlePreviousMessages(messages, hasMore);
+        },
 
         // Message handling
-        receiveMessage: (message) async => _handleReceiveMessage(message),
+        receiveMessage: (message) async {
+          await _handleReceiveMessage(message);
+        },
 
         // Sending messages
-        sendMessage: (message, format, metadata, promptId) async =>
-            _handleSendMessage(message, format, metadata, promptId, emit),
-        finishSending: () async => emit(
-          state.copyWith(
-            promptResponseState: PromptResponseState.streamingAnswer,
-          ),
-        ),
+        sendMessage: (message, format, metadata, promptId) {
+          _handleSendMessage(message, format, metadata, promptId, emit);
+        },
+        finishSending: () {
+          emit(
+            state.copyWith(
+              promptResponseState: PromptResponseState.streamingAnswer,
+            ),
+          );
+        },
 
         // Stream control
-        stopStream: () async => _handleStopStream(emit),
-        failedSending: () async => _handleFailedSending(emit),
+        stopStream: () async {
+          await _handleStopStream(emit);
+        },
+        failedSending: () async {
+          await _handleFailedSending(emit);
+        },
 
         // Answer regeneration
-        regenerateAnswer: (id, format, model) async =>
-            _handleRegenerateAnswer(id, format, model, emit),
+        regenerateAnswer: (id, format, model) {
+          _handleRegenerateAnswer(id, format, model, emit);
+        },
 
         // Streaming completion
-        didFinishAnswerStream: () async => emit(
-          state.copyWith(
-            promptResponseState: PromptResponseState.ready,
-          ),
-        ),
+        didFinishAnswerStream: () {
+          emit(
+            state.copyWith(
+              promptResponseState: PromptResponseState.ready,
+            ),
+          );
+        },
 
         // Related questions
-        didReceiveRelatedQuestions: (questions) async =>
-            _handleRelatedQuestions(
-          questions,
-          emit,
-        ),
+        didReceiveRelatedQuestions: (questions) async {
+          await _handleRelatedQuestions(questions, emit);
+        },
 
         // Message management
-        deleteMessage: (message) async => chatController.remove(message),
+        deleteMessage: (messageId) async {
+          await chatController.removeById(messageId);
+        },
 
         // AI follow-up
-        onAIFollowUp: (followUpData) async {
+        onAIFollowUp: (followUpData) {
           shouldFetchRelatedQuestions =
               followUpData.shouldGenerateRelatedQuestion;
         },
@@ -163,7 +181,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     Emitter<ChatState> emit,
   ) async {
     for (final message in messages) {
-      await chatController.insert(message, index: 0);
+      await chatController.insert(message);
     }
 
     // Check if emit is still valid after async operations
@@ -184,9 +202,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     }
   }
 
-  void _handlePreviousMessages(List<Message> messages, bool hasMore) {
+  Future<void> _handlePreviousMessages(
+      List<Message> messages, bool hasMore,) async {
     for (final message in messages) {
-      chatController.insert(message, index: 0);
+      await chatController.insert(message);
     }
 
     isLoadingPreviousMessages = false;
@@ -194,13 +213,13 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   }
 
   // Message handling
-  void _handleReceiveMessage(Message message) {
+  Future<void> _handleReceiveMessage(Message message) async {
     final oldMessage =
         chatController.messages.firstWhereOrNull((m) => m.id == message.id);
     if (oldMessage == null) {
-      chatController.insert(message);
+      await chatController.insert(message);
     } else {
-      chatController.update(oldMessage, message);
+      await chatController.update(oldMessage, message);
     }
   }
 
@@ -246,16 +265,16 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       (e) => e.id == _messageHandler.answerStreamMessageId,
     );
     if (message != null) {
-      await chatController.remove(message);
+      await chatController.removeById(message.id);
     }
 
     await _streamManager.disposeAnswerStream();
   }
 
-  void _handleFailedSending(Emitter<ChatState> emit) {
+  Future<void> _handleFailedSending(Emitter<ChatState> emit) async {
     final lastMessage = chatController.messages.lastOrNull;
     if (lastMessage != null) {
-      chatController.remove(lastMessage);
+      await chatController.removeById(lastMessage.id);
     }
     emit(state.copyWith(promptResponseState: PromptResponseState.ready));
   }
@@ -282,10 +301,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   }
 
   // Related questions handler
-  void _handleRelatedQuestions(
+  Future<void> _handleRelatedQuestions(
     List<String> questions,
     Emitter<ChatState> emit,
-  ) {
+  ) async {
     if (questions.isEmpty) {
       return;
     }
@@ -300,11 +319,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       id: "related_question_$createdAt",
       text: '',
       metadata: metadata,
-      author: const User(id: systemUserId),
+      authorId: systemUserId,
       createdAt: createdAt,
     );
 
-    chatController.insert(message);
+    await chatController.insert(message);
 
     emit(
       state.copyWith(
@@ -491,7 +510,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           final error = TextMessage(
             text: '',
             metadata: metadata,
-            author: const User(id: systemUserId),
+            authorId: systemUserId,
             id: systemUserId,
             createdAt: DateTime.now(),
           );
@@ -589,7 +608,7 @@ class ChatEvent with _$ChatEvent {
     List<String> questions,
   ) = _DidReceiveRelatedQueston;
 
-  const factory ChatEvent.deleteMessage(Message message) = _DeleteMessage;
+  const factory ChatEvent.deleteMessage(String messageId) = _DeleteMessage;
 
   const factory ChatEvent.onAIFollowUp(AIFollowUpData followUpData) =
       _OnAIFollowUp;
@@ -611,7 +630,7 @@ class ChatState with _$ChatState {
 }
 
 bool isOtherUserMessage(Message message) {
-  return message.author.id != aiResponseUserId &&
-      message.author.id != systemUserId &&
-      !message.author.id.startsWith("streamId:");
+  return message.authorId != aiResponseUserId &&
+      message.authorId != systemUserId &&
+      !message.authorId.startsWith("streamId:");
 }

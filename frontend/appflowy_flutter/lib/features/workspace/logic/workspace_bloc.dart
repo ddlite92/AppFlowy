@@ -17,7 +17,6 @@ import 'package:appflowy_result/appflowy_result.dart';
 import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:protobuf/protobuf.dart';
 
 export 'workspace_event.dart';
 export 'workspace_state.dart';

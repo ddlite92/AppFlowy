@@ -11,7 +11,6 @@ import 'package:appflowy_popover/appflowy_popover.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flowy_infra_ui/style_widget/button.dart';
 import 'package:flowy_infra_ui/style_widget/text.dart';
-import 'package:protobuf/protobuf.dart';
 
 class MediaTypeOptionEditorFactory implements TypeOptionEditorFactory {
   const MediaTypeOptionEditorFactory();

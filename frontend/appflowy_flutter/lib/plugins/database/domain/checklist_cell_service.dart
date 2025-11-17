@@ -2,7 +2,6 @@ import 'package:appflowy_backend/dispatch/dispatch.dart';
 import 'package:appflowy_backend/protobuf/flowy-database2/protobuf.dart';
 import 'package:appflowy_backend/protobuf/flowy-error/errors.pb.dart';
 import 'package:appflowy_result/appflowy_result.dart';
-import 'package:protobuf/protobuf.dart';
 
 class ChecklistCellBackendService {
   ChecklistCellBackendService({

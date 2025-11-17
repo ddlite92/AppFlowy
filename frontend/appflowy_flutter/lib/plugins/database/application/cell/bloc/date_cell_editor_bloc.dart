@@ -22,7 +22,6 @@ import 'package:fixnum/fixnum.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:nanoid/non_secure.dart';
-import 'package:protobuf/protobuf.dart' hide FieldInfo;
 
 part 'date_cell_editor_bloc.freezed.dart';
 

@@ -2,7 +2,6 @@ import 'package:appflowy/plugins/database/application/field/type_option/type_opt
 import 'package:appflowy_backend/protobuf/flowy-database2/protobuf.dart';
 import 'package:flowy_infra_ui/flowy_infra_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:protobuf/protobuf.dart';
 
 import '../../../grid/presentation/layout/sizes.dart';
 import 'builder.dart';

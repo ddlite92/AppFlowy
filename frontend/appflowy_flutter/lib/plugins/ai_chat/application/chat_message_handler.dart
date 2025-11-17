@@ -51,7 +51,7 @@ class ChatMessageHandler {
     final metadata = message.metadata == 'null' ? '[]' : message.metadata;
 
     return TextMessage(
-      author: User(id: message.authorId),
+      authorId: message.authorId, // Changed from author: User(id: ...)
       id: messageId,
       text: message.content,
       createdAt: message.createdAt.toDateTime(),
@@ -74,7 +74,7 @@ class ChatMessageHandler {
     return TextMessage(
       id: answerStreamMessageId,
       text: '',
-      author: User(id: "streamId:${nanoid()}"),
+      authorId: "streamId:${nanoid()}", // Changed from author: User(id: ...)
       metadata: {
         "$AnswerStream": stream,
         messageQuestionIdKey: questionMessageId,
@@ -93,7 +93,7 @@ class ChatMessageHandler {
     questionStreamMessageId = timestamp().toString();
 
     return TextMessage(
-      author: User(id: userId),
+      authorId: userId, // Changed from author: User(id: userId)
       metadata: {
         "$QuestionStream": stream,
         "chatId": chatId,

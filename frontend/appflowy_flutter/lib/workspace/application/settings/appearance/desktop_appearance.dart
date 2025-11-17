@@ -52,7 +52,6 @@ class DesktopAppearance extends BaseAppearance {
       visualDensity: VisualDensity.standard,
       useMaterial3: false,
       brightness: brightness,
-      dialogBackgroundColor: theme.surface,
       textTheme: getTextTheme(
         fontFamily: fontFamily,
         fontColor: theme.text,
@@ -100,7 +99,6 @@ class DesktopAppearance extends BaseAppearance {
       hoverColor: theme.hoverBG2,
       disabledColor: theme.shader4,
       highlightColor: theme.main1,
-      indicatorColor: theme.main1,
       cardColor: theme.input,
       colorScheme: colorScheme,
 
@@ -153,7 +151,7 @@ class DesktopAppearance extends BaseAppearance {
           lightIconColor: theme.lightIconColor,
           toolbarHoverColor: theme.toolbarHoverColor,
         ),
-      ],
+      ], dialogTheme: DialogThemeData(backgroundColor: theme.surface), tabBarTheme: TabBarThemeData(indicatorColor: theme.main1),
     );
   }
 }
